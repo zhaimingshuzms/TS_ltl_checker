@@ -156,7 +156,7 @@ class Product(TS):
     
 # Define a function to load a TS from a file
 def load_ts():
-    with open("TS.txt","r") as f:
+    with open("data/TS.txt","r") as f:
         raw_data = f.readlines()
     data = []
     for s in raw_data:
