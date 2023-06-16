@@ -1,6 +1,6 @@
 ### How to use
 ```pip install pyparsing```  
-```python check.py```
+```python check.py```  
 Then type the ltl formula want to examine.
 By default, the transition system is stored at TS.txt
 
