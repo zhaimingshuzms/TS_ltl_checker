@@ -98,7 +98,7 @@ class TS:
             # print("After nested dfs",s,self.R)
             # If a cycle is found, return False
             if self.cycle_found:
-                return False
+                return False, self.U + self.V
         # If no cycles are found, return True
         return True
     
@@ -109,11 +109,14 @@ class TS:
     
     # Define a function to print the edges of the TS
     def print_edge(self):
+        cnt = 0
         print(f"{self.class_name()} edges:")
         for i in range(self.nstates):
             for j in range(self.nstates):
+                if self.map[i][j]!=None:
+                    cnt = cnt + 1
                 print(self.map[i][j],end = ' ')
-            print('')
+            print("cnt = ",cnt)
 
 # Define a Product class that inherits from the TS class
 class Product(TS):

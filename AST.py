@@ -35,16 +35,18 @@ class ASTNode:
         
         if self.op == 'F':
             self.op = 'U'
-            self.sub = [ASTNode(['True']), ASTNode(self.sub[0]) ]
+            self.sub = [ASTNode(['True']), ASTNode(self.sub[0])]
         elif self.op == 'G':
             self.op = '!'
             self.sub = [ASTNode(['F',['!',self.sub[0]]])]
         elif self.op == '|':
             self.op = '!'
             self.sub = [ASTNode([['!',self.sub[0]],'&',['!',self.sub[1]]])]
+        elif self.op =='->':
+            self.__init__([['!',self.sub[0]], '|', self.sub[1]])
         else:
             self.sub = [ASTNode(i) for i in self.sub]
-    
+        
     def tostr(self):
         if self.op =='':
             return self.val[0]

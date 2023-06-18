@@ -97,7 +97,7 @@ class GNBA(automaton):
         self.F = []
         for item in self.closure:
             if item.op == 'U':
-                self.F.append([self.ind(B) for B in self.Q if item not in B or item.sub[1] in B])
+                self.F.append([self.ind(B) for B in self.Q if not (item in B and item.sub[1] not in B)])
         
         self.map = [[None for i in range(len(self.Q))] for j in range(len(self.Q))]
         
@@ -137,7 +137,7 @@ class GNBA(automaton):
             for j in range(n):
                 for k in range(n):
                     if self.map[j][k] != None:
-                        if self.Q[j] in self.F[i]:
+                        if self.ind(self.Q[j]) in self.F[i]:
                             tmp_map[i*n+j][(i+1)%m*n+k] = self.map[j][k]
                         else:
                             tmp_map[i*n+j][i*n+k] = self.map[j][k]
