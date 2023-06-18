@@ -25,11 +25,15 @@ def test_engine(**kwargs):
     data_dir = kwargs['-t']
     n, m = int(ltl_data[0][0]), int(ltl_data[0][1])
     for i in range(n):
-        ltl_formula = ltl_data[i+1][0]
+        ltl_formula = ''
+        for j in ltl_data[i+1]:
+            ltl_formula += j
         run(ltl_formula, data_dir)
     for i in range(m):
         initial = [int(ltl_data[i+n+1][0])]
-        ltl_formula = ltl_data[i+n+1][1]
+        ltl_formula = ''
+        for j in range(1,len(ltl_data[i+n+1])):
+            ltl_formula += ltl_data[i+n+1][j]
         run(ltl_formula, data_dir, I=initial)
 
 if __name__ == "__main__":

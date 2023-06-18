@@ -28,12 +28,12 @@ def parsing(ltl_formula:str):
     # no ambiguity
     atom = prop | (lparen + expr + rparen) | neg | next | eventually | always
 
-    until = Group(atom + op_until + atom)
-    release = Group(atom + op_release + atom)
-    and_expr = Group(atom + op_and + atom)
-    or_expr = Group(atom + op_or + atom)
-    implies = Group(atom + op_implies + atom)
-    equiv = Group(atom + op_equiv + atom)
+    until = Group(atom + op_until + expr)
+    release = Group(atom + op_release + expr)
+    and_expr = Group(atom + op_and + expr)
+    or_expr = Group(atom + op_or + expr)
+    implies = Group(atom + op_implies + expr)
+    equiv = Group(atom + op_equiv + expr)
     binary_op = until | release | and_expr | or_expr | implies | equiv | atom
     expr << binary_op
 
