@@ -19,4 +19,3 @@ All files must store in required formats.
 ```check.py``` is the main program
 
 ### Notice
-This model checker currently doesn't support arbitary initial state for TS.
