@@ -32,13 +32,16 @@ class ASTNode:
     def __init__(self, formula):
         self.val = formula
         self.op, self.sub = ASTNode.analyze(self.val)
-
+        
         if self.op == 'F':
             self.op = 'U'
             self.sub = [ASTNode(['True']), ASTNode(self.sub[0]) ]
         elif self.op == 'G':
             self.op = '!'
             self.sub = [ASTNode(['F',['!',self.sub[0]]])]
+        elif self.op == '|':
+            self.op = '!'
+            self.sub = [ASTNode([['!',self.sub[0]],'&',['!',self.sub[1]]])]
         else:
             self.sub = [ASTNode(i) for i in self.sub]
     
@@ -71,6 +74,9 @@ class ASTNode:
     
     def atomic(self):
         return self.op==''
+    
+    def isLiteralTrue(self):
+        return self.val[0] == 'True'
     
 class AST:
     def __init__(self, root:ASTNode):

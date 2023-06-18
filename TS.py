@@ -95,7 +95,7 @@ class TS:
         for s in self.I:
             if self.R.get(s) == None:
                 self.reachable_cycle(s)
-            print("After nested dfs",s,self.R)
+            # print("After nested dfs",s,self.R)
             # If a cycle is found, return False
             if self.cycle_found:
                 return False
@@ -126,10 +126,11 @@ class Product(TS):
         self.I = []
         # Loop through all initial states of the TS and the NBA and add any valid combinations to the initial states list
         for s in ts.I:
+            # print("list_and",list_and(ts.label[s],nba.AP))
             for q in range(nba.nstates):
                 test = False
                 for q_ in nba.Q0:
-                    if seteq(no_true(nba.map[q_][q]),list_and(ts.label[s],nba.AP)):
+                    if seteq(nba.map[q_][q],list_and(ts.label[s],nba.AP)):
                         test = True
                 if test:
                     self.I.append(self.ind(s,q))
@@ -143,7 +144,7 @@ class Product(TS):
                 if ts.map[s][t] != None:
                     for q in range(nba.nstates):
                         for p in range(nba.nstates):
-                            if seteq(no_true(nba.map[q][p]),list_and(ts.label[t],nba.AP)):
+                            if seteq(nba.map[q][p],list_and(ts.label[t],nba.AP)):
                                 self.map[self.ind(s,q)][self.ind(t,p)] = 1
 
         # Create the list of final states for the product automaton
@@ -154,20 +155,21 @@ class Product(TS):
         return s * self.nbastates + q
     
 # Define a function to load a TS from a file
-def load_ts():
-    with open("data/TS3.txt","r") as f:
-        raw_data = f.readlines()
-    data = []
-    for s in raw_data:
-        data.append(s.strip().split(' '))
+def load_ts(data_path, **kwargs):
     
+    data = load_data(data_path)
+
     for i in range(len(data)):
         if i!=3:
             data[i]=[int(j) for j in data[i]]
     
     nstates = data[0][0]
     ntrans = data[0][1]
-    I = data[1]
+    if kwargs.get('I'):
+        I = kwargs['I']
+    else:
+        I = data[1]
+    
     act = data[2]
     AP = data[3]
     map = [[None for i in range(nstates)] for j in range(nstates)]

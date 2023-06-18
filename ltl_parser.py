@@ -1,6 +1,10 @@
 from pyparsing import *
 
-def parsing(ltl_formula):
+def parsing(ltl_formula:str):
+    ltl_formula = ltl_formula.replace('/\\','&')
+    ltl_formula = ltl_formula.replace('\\/','|')
+
+
     # Define the grammar for LTL formulas
     prop = Group(Word(alphas.lower()))
     op_not = Literal("!")
@@ -38,6 +42,6 @@ def parsing(ltl_formula):
     ast = expr.parseString(ltl_formula).as_list()[0]
 
     # Print the AST
-    print("parse result: ",ast)
+    # print("parse result: ",ast)
     return ast
 

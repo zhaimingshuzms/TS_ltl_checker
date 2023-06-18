@@ -56,16 +56,16 @@ def generate_elementary_sets(closure):
                 tmp.append(closure[bit])
         if check_elementary(closure, tmp):
 
-            print("---------------?")
-            for i in tmp:
-                print(i.tostr())
+            # print("---------------?")
+            # for i in tmp:
+            #     print(i.tostr())
             
             ret.append(tmp)
     return ret
 
 # Return the set of atomic propositions of an LTL formula
 def AP(B):
-    return list(set([item.tostr() for item in B if item.atomic()]))
+    return list(set([item.tostr() for item in B if item.atomic() and not item.isLiteralTrue()]))
 
 # The `automaton` class represents a basic automaton with a fixed number of states, initial states, accepting states, transition function, and set of atomic propositions (`AP`).
 class automaton:

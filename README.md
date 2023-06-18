@@ -1,8 +1,15 @@
 ### How to use
-```pip install pyparsing```  
-```python check.py```  
-Then type the ltl formula want to examine.
-By default, the transition system is stored at TS.txt
+```pip install pyparsing```
+
+#### interact mode
+```python interact.py -i```  
+Then type the ltl formula want to examine and TS filepath.
+
+
+#### test mode
+```python interact.py -l ltl_file_path -t TS_file_path```   
+This command will run the ltl_formula in ltl_file with TS in TS_file.  
+All files must store in required formats.
 
 ### Arch
 ```AST.py``` is AST node and tree to parse ltl formula  
