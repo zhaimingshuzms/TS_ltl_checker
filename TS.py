@@ -126,11 +126,10 @@ class Product(TS):
         self.I = []
         # Loop through all initial states of the TS and the NBA and add any valid combinations to the initial states list
         for s in ts.I:
-            print("list_and",list_and(ts.label[s],nba.AP))
             for q in range(nba.nstates):
                 test = False
                 for q_ in nba.Q0:
-                    if no_true(nba.map[q_][q]) == list_and(ts.label[s],nba.AP):
+                    if seteq(no_true(nba.map[q_][q]),list_and(ts.label[s],nba.AP)):
                         test = True
                 if test:
                     self.I.append(self.ind(s,q))
@@ -144,7 +143,7 @@ class Product(TS):
                 if ts.map[s][t] != None:
                     for q in range(nba.nstates):
                         for p in range(nba.nstates):
-                            if no_true(nba.map[q][p]) == list_and(ts.label[t],nba.AP):
+                            if seteq(no_true(nba.map[q][p]),list_and(ts.label[t],nba.AP)):
                                 self.map[self.ind(s,q)][self.ind(t,p)] = 1
 
         # Create the list of final states for the product automaton
@@ -156,7 +155,7 @@ class Product(TS):
     
 # Define a function to load a TS from a file
 def load_ts():
-    with open("data/TS.txt","r") as f:
+    with open("data/TS3.txt","r") as f:
         raw_data = f.readlines()
     data = []
     for s in raw_data:
